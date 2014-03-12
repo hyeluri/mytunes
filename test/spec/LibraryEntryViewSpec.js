@@ -8,13 +8,15 @@ describe('LibraryEntryView', function() {
       url: 'example/url',
     });
     // sinon.spy(SongModel.prototype, 'enqueue'); // Uncomment this when working on the second test
+
     sinon.spy(SongModel.prototype, 'play');
     view = new LibraryEntryView({model: model});
     view.render();
   });
 
-  after(function() {
-    SongModel.prototype.enqueue.restore();
+  afterEach(function() {
+    // SongModel.prototype.enqueue.restore();
+    SongModel.prototype.play.restore();
   });
 
   it('plays clicked songs', function(){
@@ -23,7 +25,7 @@ describe('LibraryEntryView', function() {
   });
 
   // Comment out the above spec when implementing the below
-  xit('queues clicked songs', function(){
+  it('queues clicked songs', function(){
     view.$el.children().first().click();
     expect(model.enqueue).to.have.been.called;
   });
